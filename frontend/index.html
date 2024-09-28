@@ -45,16 +45,7 @@
             margin: 5px 0;
             padding: 10px;
         }
-        .visit-counter {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
+
     </style>
 </head>
 <body>
@@ -122,24 +113,6 @@
             </ul>
         </div>
 
-        <div class="visit-counter">
-            <p>Number of visits: <span id="visit-count">0</span></p>
-        </div>
-    </div>
-
-    <script>
-        function incrementVisitCount() {
-            let visitCount = localStorage.getItem('visitCount');
-            if (visitCount === null) {
-                visitCount = 0;
-            }
-            visitCount++;
-            localStorage.setItem('visitCount', visitCount);
-            document.getElementById('visit-count').innerText = visitCount;
-        }
-
-        incrementVisitCount();
-    </script>
 </body>
 </html>
 

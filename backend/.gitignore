@@ -1,0 +1,11 @@
+# Ignore the .env file
+.env
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Azure Functions local settings
+local.settings.json
+

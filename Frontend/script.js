@@ -1,6 +1,6 @@
 async function getVisitorCount() {
     try {
-        const response = await fetch('https://wickicanadacentral.azurewebsites.net/api/http_triggerwaqas?code=leFTjFvkNmUBIY88lPxuzQBCcrvXzfGHFmK75j9UfaVUAzFu331XlQ%3D%3D'); // Replace with your actual API URL
+        const response = await fetch('https://waqascanadacentral.azurewebsites.net/api/http_triggerwaqas?code=aAvU8coR4pCv9TbrTjCyhxa_pYt3hiEInvRLQRr1kl_yAzFuZQl7tw%3D%3D'); // Replace with your actual API URL
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }

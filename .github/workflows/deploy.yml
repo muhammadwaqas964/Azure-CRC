@@ -1,40 +1,30 @@
-name: Deploy to Azure
+name: Deploy Azure Functions
 
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your default branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Setup Python (or your language)  
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Specify your Python version here
 
-    - name: Deploy ARM Template
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: class-waqas
-        template: ./infrastructure/template.json
-        parameters: ./infrastructure/parameters.json
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Adjust based on your project
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r backend/requirements.txt
-
-    - name: Publish Function App
-      run: |
-        func azure functionapp publish WAQASCanadaCentral
+      - name: Deploy to Azure Functions
+        uses: azure/functions-action@v1
+        with:
+          app-name: WAQASCanadaCentral        
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}  
+          package: '.'

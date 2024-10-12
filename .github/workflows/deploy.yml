@@ -13,17 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build website
-      run: npm run build
-
     - name: Deploy to Azure Storage
       run: |
         az storage blob upload-batch -d '$web' -s './Frontend' --account-name waqasstorage

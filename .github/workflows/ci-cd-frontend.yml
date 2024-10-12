@@ -1,0 +1,28 @@
+name: CI/CD Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Storage
+      run: |
+        az storage blob upload-batch -d '$web' -s './Frontend' --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} --auth-mode login
+
+    - name: Rename index file
+      run: |
+        az storage blob copy start --source-blob index3.html --destination-blob index.html --destination-container '$web' --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+
